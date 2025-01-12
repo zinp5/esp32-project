@@ -18,6 +18,12 @@ setup
 loop
     constantly scan and place signal value into reciever
     if receiver low ---> signal found
+
+
+-------------TO DO-------------
+update pseudo
+get the pattern up and running to detect motion
+show image files in git
 */
 
 //#include <Arduino.h>
@@ -25,7 +31,7 @@ loop
 const int IRpin = 33;           //set the input pin
 int receiver;                   //holds the status of the IR sensor
 bool detector = false;
-int pattern[] = {1, 1, 1};
+int pattern[] = {1, 1};
 void setup() {
     pinMode(IRpin, INPUT);      //set pinmode for IR pin to input
     Serial.begin(9600);         //open serial monitor for basic output
@@ -36,13 +42,17 @@ void loop() {
 
     receiver = digitalRead(IRpin);
     
-    //pattern[0] = pattern[1];
-    //pattern[1] = pattern[2];
-    pattern[2] = receiver;
+    pattern[1] = receiver;
 
-    if(pattern[2] == 0){
-        Serial.write("object ");
+    Serial.print(pattern[0]);
+    Serial.print("\t");
+    Serial.println(pattern[1]); 
+
+    if(pattern[0] == 0 && pattern[1] == 1){
+        Serial.println("\tmotion detected ");
     }
     
-    delay(250);
+    pattern[0] = pattern[1];
+    
+    delay(200);
 }
