@@ -39,10 +39,6 @@ setup
 loop
     constantly scan and place signal value into reciever
     if receiver low ---> signal found
-
--------------TO DO-------------
-show image files in git
-
 */
 
 //#include <Arduino.h> //one day this will be necessary maybe
