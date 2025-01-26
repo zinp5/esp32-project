@@ -1,39 +1,47 @@
 /*
 basics of bluetooth
 
-use #include "BluetoothSerial.h"
-https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/
+-------------pseudo-------------
+include bluetoothserial.h
 
+create bluetooth object
 
-aparently the esp32 pin #2 can manipulate the board's built-in LED,,, simply do :::: pinmode(2, OUTPUT)
+setup
+    open serial monitor
+    short delay for error checking prints
+    initialize  bluetooth device & give name
 
-------TO DO------
-compile basic comments into a single file
-add pseudo
-refine & understand bt process
-
+loop
+    if signal recieved ---> print signal recieved
 */
 
+//----------------- create bt object ------------
 #include "BluetoothSerial.h"
+BluetoothSerial btinput;                                //initialize the bluetooth object
+//----------------- create bt object ------------
 
-BluetoothSerial btinput;
-
+//----------------------- setup -----------------------
 void setup() {
 
-    Serial.begin(9600);
-    delay(1000);    
-    if( btinput.begin("clock") ){
-        Serial.println("epic");
+    Serial.begin(9600);                                 //open serial monitor for basic output from esp32
+    delay(300);                                         //insert short delay, may cause bugs if not present, something to do with serial monitor not being ready,,, only necessary for early prints in setup
+
+    //----------- bt init ---------------
+    if( btinput.begin("Umbrella") ){                    //begin turning the esp32 into a bluetooth device,,, currently named:::: Umbrella
+        Serial.println("bluetooth up and running now");                         //error checking
     }
     else{
-        Serial.println("shits fucked");
+        Serial.println("shits fucked");                 //error checking
     }
-    
-    Serial.println("running this properly so far...");
+    //----------- bt init ---------------
 }
+//----------------------- setup -----------------------
 
+
+//----------------------- main loop -----------------------
 void loop() {
-    if( btinput.available() ){
-        Serial.println( btinput.read() );
+    if( btinput.available() ){                          //everytime a singal is read from the bluetooth, do...
+        Serial.println( btinput.read() );               //print out what the bluetooth signal reads
     }
 }
+//----------------------- main loop -----------------------
