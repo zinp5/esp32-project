@@ -1,0 +1,48 @@
+NOTE THAT & todo
+
+------TO DO------
+update git
+study up on relays,, controlling lamp from esp32
+
+
+------------esp general---------------
+aparently the esp32 pin #2 can manipulate the board's built-in LED,,, simply do :::: pinmode(2, OUTPUT)
+if you wish to print something in setup (ie,, error checking) you must place a delay(minimum 275) after the serial.begin(9600) line
+		failure to do so means the esp32 may send info before serial on the PC can read it
+one day ::::: #include <Arduino.h> ::::: will be necessary
+
+
+----------ir sensor-------------------
+bright lights (ie your lamp) will activate the IR sensor 
+this IR sensor will set input to LOW when there is detection
+
+irpin only defines which pin to look at for incoming data
+    to actually recieve that data, we need receiver = digitalRead(incomingpin)
+
+we can utilize the led on the ir sensor by setting the IRpin pinMode to output 
+
+ir current draw = 45mA
+
+though the sensor will have trouble seeing object more than 4in away, 
+    the sensor will pick up another IR signal (from another IRsensor) from 6+in
+
+to mitigate noise / debounce the input signal, include a :::delay(1):::: at the end of your prog
+	(something about clock and propogation time) ,, the input needs to be steady for a short period
+
+
+---------detecting motion---------
+motion is defined as an object being at a point different from the point it was at previously
+i detect motion using a 1d array that holds two values, current(index 1) and previous(index 0)
+    the method runs in three steps:
+        first step: input >>> current
+        check status
+        second step: current >>> previous
+    before second step I check status ::::if current != previous:::: then i deduce that something has moved / motion detected 
+        (given that an object is at/not at the point that it was not at/was at previously)
+
+
+--------------bluetooth------------
+dont forget your laptop has a serial terminal tool
+use #include "BluetoothSerial.h" is required
+short tutorial::::::::https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/
+
