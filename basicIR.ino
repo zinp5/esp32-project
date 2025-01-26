@@ -1,35 +1,6 @@
 /*
 simple IR detection device
 
----------note that---------
-bright lights (ie your lamp) will activate the IR sensor 
-this IR sensor will set input to LOW when there is detection
-
-irpin only defines which pin to look at for incoming data
-    to actually recieve that data, we need receiver = digitalRead(incomingpin)
-
-we can utilize the led on the ir sensor by setting the IRpin pinMode to output 
-
-ir current draw = 45mA
-
-though the sensor will have trouble seeing object more than 4in away, 
-    the sensor will pick up another IR signal (from another IRsensor) from 6+in
-
-to mitigate noise / debounce the input signal, include a :::delay(1):::: at the end of your prog
-
----------detecting motion---------
-motion is defined as an object being at a point different from the point it was at previously
-i detect motion using a 1d array that holds two values, current(index 1) and previous(index 0)
-    the method runs in three steps:
-        first step: input >>> current
-        check status
-        second step: current >>> previous
-    before second step I check status ::::if current != previous:::: then i deduce that something has moved / motion detected 
-        (given that an object is at/not at the point that it was not at/was at previously)
-
----------input path-----------
-physical world >>> IR sensor >>> sensor output >>> esp32 pin >>> reciever
-
 ---------pesudo---------
 setup
     set pin & open it for signal
@@ -40,8 +11,6 @@ loop
     constantly scan and place signal value into reciever
     if receiver low ---> signal found
 */
-
-//#include <Arduino.h> //one day this will be necessary maybe
 
 
 //------------------------global vars------------------------
