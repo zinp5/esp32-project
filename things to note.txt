@@ -1,8 +1,7 @@
 NOTE THAT & todo
 
 ------TO DO------
-update git
-study up on relays,, controlling lamp from esp32
+wire cutter and stripper and soldering and raw wire
 
 
 ------------esp general---------------
@@ -46,3 +45,16 @@ dont forget your laptop has a serial terminal tool
 use #include "BluetoothSerial.h" is required
 short tutorial::::::::https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/
 
+
+--------------------relay--------------------
+our relay is controlled by 3v that can handle 5v (by means of octocoupling (whatever that is))
+this video is really helpful (it shows how to wire it) ::::::::: https://www.youtube.com/watch?v=giACxpN0cGc&ab_channel=RuiSantos
+
+the led on the relay only turns on when input is high (i fucking hate this btw) 
+	iow, there is no power inticator LED
+
+dont bother removing the jumpercovers on the unnamed pairs, not enitrely sure what they do
+	according to my beloved chatgpt, 
+		one pair toggles the octoupler isolation mode
+		the other is trigger mode selection (LOW to set instead of HIGH)
+		(iow dont bother with em)
